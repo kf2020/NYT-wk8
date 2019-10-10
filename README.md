@@ -1,8 +1,14 @@
 # NYT
  
-Currently the baseline app for Week 3 INFS3634. 
+Currently the baseline app for Week 4 INFS3634.
 
-You will need to know how everything in this app works to be able to continue in Week 4.
+You will need to know how everything in this app works to be able to continue in Week 5.
+
+**Week 4**
+- New class "ArticleAdapter" - our custom Adapter for the RecyclerView
+- Refactor MainActivity.java to use RecyclerView
+- Change activity_main.xml to be only a RecyclerView
+- Same functionality as last week, but so much cleaner, efficient, and scalable.
 
 **Week 3**
 - Second activity, the detail activity that shows the user the details for a specific article.

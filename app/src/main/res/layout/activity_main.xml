@@ -6,6 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+<!-- We don't need this stuff anymore. The RecyclerView replaces it
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,4 +34,5 @@
             app:layout_constraintTop_toBottomOf="@+id/article1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+-->
 </ScrollView>
