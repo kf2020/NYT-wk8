@@ -20,12 +20,15 @@ public class Article {
     private int imageDrawableId;
 
 
-    public Article(int articleID, String headline, String author, String summary, String content) {
+    public Article(int articleID, String headline, String author, String summary, String content, int imageDrawableId) {
         this.articleID = articleID;
         this.headline = headline;
         this.author = author;
         this.summary = summary;
         this.content = content;
+
+        // Added this line for temporary way of showing images
+        this.imageDrawableId = imageDrawableId;
     }
 
     public int getArticleID() {

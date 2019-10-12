@@ -75,6 +75,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 context.startActivity(intent);
             }
         });
+
+        holder.itemImageView.setImageResource(articleAtPosition.getImageDrawableId());
     }
 
     @Override
@@ -89,6 +91,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         public TextView headlineTextView;
         public TextView summaryTextView;
         public ImageView shareImageView;
+        public ImageView itemImageView;
 
         // This constructor is used in onCreateViewHolder
         public ArticleViewHolder(View v) {
@@ -97,6 +100,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             headlineTextView = v.findViewById(R.id.newsHeadline);
             summaryTextView = v.findViewById(R.id.newsDetails);
             shareImageView = v.findViewById(R.id.newsShareButton);
+            itemImageView = v.findViewById(R.id.newsPhoto);
         }
     }
 }

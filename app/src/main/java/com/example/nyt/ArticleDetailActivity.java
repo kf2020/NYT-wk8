@@ -42,6 +42,8 @@ public class ArticleDetailActivity extends AppCompatActivity {
         // Don't worry too much about images for now (but if you can get something to work then do)
         // Generally you don't want to store image data in your app (too much space required)
         // We'll learn the way to load images from the internet in a later week.
+
+        // BUT we have included a way to show images that works for now.
         imageView.setImageResource(article.getImageDrawableId());
     }
 }
