@@ -9,6 +9,7 @@ You will need to know how everything in this app works to be able to continue in
 - Refactor MainActivity.java to use RecyclerView
 - Change activity_main.xml to be only a RecyclerView
 - Same functionality as last week, but so much cleaner, efficient, and scalable.
+- (NEW) Showing images (temporary way), check changes in Article, FakeDatabase, ArticleAdapter
 
 **Week 3**
 - Second activity, the detail activity that shows the user the details for a specific article.
