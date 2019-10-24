@@ -1,4 +1,4 @@
-package com.example.nyt;
+package com.example.nyt.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.nyt.R;
 
 
 /**
@@ -95,9 +97,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    // You assign the listener here. The context parameter represents the parent Activity.
-    // Thus, we can set the listener to be the context, and it is the same as setting the listener
-    // to be the parent Activity. This would be relevant to onButtonPressed above.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -1,4 +1,4 @@
-package com.example.nyt;
+package com.example.nyt.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.nyt.R;
+import com.example.nyt.fragments.ArticleRecyclerFragment;
+import com.example.nyt.fragments.BookRecyclerFragment;
+import com.example.nyt.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 // Notice the Activity implements the interface OnFragmentInteractionListener, meaning this Activity
@@ -25,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // I want there to be a Fragment in the slot from the start
         Fragment fragment = new ArticleRecyclerFragment();
         swapFragment(fragment);
@@ -42,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                     swapFragment(fragment);
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_books) {
-                    // TODO: Implement a books fragment
+                    Fragment fragment = new BookRecyclerFragment();
+                    swapFragment(fragment);
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_profile) {
                     Fragment fragment = new ProfileFragment();

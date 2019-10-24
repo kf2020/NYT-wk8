@@ -11,6 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.nyt.activities.ArticleDetailActivity;
+import com.example.nyt.model.Article;
+
 import java.util.ArrayList;
 
 // We need to give a type in angle brackets <> when we extend RecyclerView.Adapter
@@ -42,15 +46,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        // Compare what we have in this method, to what we used to have in MainActivity
-
-        // 'position' is the index of the ViewHolder currently being bound (note VIEWHOLDER). So
-        // if position is 0, then we are binding the first ViewHolder in the list. This means the
-        // corresponding data object will be at index 0 of our data ArrayList.
         final Article articleAtPosition = articlesToAdapt.get(position);
 
-        holder.headlineTextView.setText(articleAtPosition.getHeadline());
-        holder.summaryTextView.setText(articleAtPosition.getSummary());
+        holder.headlineTextView.setText(articleAtPosition.getTitle());
+        holder.summaryTextView.setText(articleAtPosition.get_abstract());
 
 
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +58,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 Context context = view.getContext();
 
                 Intent intent = new Intent(context, ArticleDetailActivity.class);
-                intent.putExtra("ArticleID", articleAtPosition.getArticleID());
+                intent.putExtra("ArticleID", articleAtPosition.getId());
                 context.startActivity(intent);
             }
         });
@@ -70,13 +69,17 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 Context context = view.getContext();
                 Intent intent = new Intent(Intent.ACTION_SEND);
 
-                intent.putExtra(Intent.EXTRA_TEXT, articleAtPosition.getHeadline());
+                intent.putExtra(Intent.EXTRA_TEXT, articleAtPosition.getTitle());
                 intent.setType("text/plain");
                 context.startActivity(intent);
             }
         });
 
-        holder.itemImageView.setImageResource(articleAtPosition.getImageDrawableId());
+//        holder.articleImageView.setImageResource(articleAtPosition.getImageDrawableId());
+        if (articleAtPosition.getMedia() != null) {
+            String imageUrl = articleAtPosition.getMedia()[0].getMedia_metadata()[0].getUrl();
+            Glide.with(holder.view.getContext()).load(imageUrl).into(holder.articleImageView);
+        }
     }
 
     @Override
@@ -91,7 +94,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         public TextView headlineTextView;
         public TextView summaryTextView;
         public ImageView shareImageView;
-        public ImageView itemImageView;
+        public ImageView bookmarkImageView;
+        public ImageView articleImageView;
+        public boolean isBookmarked = false;
 
         // This constructor is used in onCreateViewHolder
         public ArticleViewHolder(View v) {
@@ -100,7 +105,24 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             headlineTextView = v.findViewById(R.id.newsHeadline);
             summaryTextView = v.findViewById(R.id.newsDetails);
             shareImageView = v.findViewById(R.id.newsShareButton);
-            itemImageView = v.findViewById(R.id.newsPhoto);
+            articleImageView = v.findViewById(R.id.newsPhoto);
+            bookmarkImageView = v.findViewById(R.id.newsSaveButton);
+
+            // We can define onClickListener for bookmark button here because it depends on data
+            // unique to this ViewHolder (i.e. whether this item has already been bookmarked or not)
+            // Technically, we can do everything that we do in onBindViewHolder in here as well.
+            bookmarkImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(isBookmarked) {
+                        bookmarkImageView.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
+                    } else {
+                        bookmarkImageView.setImageResource(R.drawable.ic_bookmark_black_24dp);
+                    }
+                    isBookmarked = !isBookmarked;
+                }
+            });
+
         }
     }
 }
