@@ -1,6 +1,6 @@
 # NYT
  
-Currently the baseline app for Week 5 INFS3634.
+Currently the baseline app for Week 6 INFS3634.
 
 You will need to know how everything in this app works to be able to continue in Week 6.
 
