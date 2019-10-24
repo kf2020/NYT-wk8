@@ -8,7 +8,9 @@ You will need to know how everything in this app works to be able to continue in
 - Use data from JSON rather than premade objects from FakeDatabase.
 - Use Gson to turn JSON into objects (which contain ArrayLists of Article/Book)
 - Added TopStoriesResponse class to represent the whole JSON.
- - Modified Article class to match the fields of the JSON.
+  - Modified Article class to match the fields of the JSON.
+- Heavily modified FakeDatabase
+  - No longer contains data in there by default; you must populate it using saveBooksToFakeDatabase
 - **Implemented Books** - IMPORTANT: We will turn our focus from Articles to Books for the following weeks.
 
 **Week 5**
