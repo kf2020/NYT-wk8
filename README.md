@@ -1,8 +1,16 @@
 # NYT
  
-Currently the baseline app for Week 4 INFS3634.
+Currently the baseline app for Week 5 INFS3634.
 
-You will need to know how everything in this app works to be able to continue in Week 5.
+You will need to know how everything in this app works to be able to continue in Week 6.
+
+**Week 5**
+- Fragments (new class ArticleRecyclerFragment, ProfileFragment).
+  - And associated layout files for the fragments, fragment_article_recycler.xml and fragment_profile.xml
+- Moved RecyclerView set up code from MainActivity to ArticleRecyclerFragment.
+- Added BottomNavigationView, making it replace the Fragment depending on item selected.
+  - Requires another layout file for the menu (see res > menu > bottom_nav_menu.xml)
+- Added ProfileFragment (just exists to be another Fragment to swap to)
 
 **Week 4**
 - New class "ArticleAdapter" - our custom Adapter for the RecyclerView
