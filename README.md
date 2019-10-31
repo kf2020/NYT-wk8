@@ -1,8 +1,14 @@
 # NYT
  
-Currently the baseline app for Week 6 INFS3634.
+Currently the baseline app for Week 7 INFS3634.
 
-You will need to know how everything in this app works to be able to continue in Week 6.
+You will need to know how everything in this app works to be able to continue in Week 8.
+
+**Week 7**
+- Use Volley instead of FakeAPI to get a JSON response for data.
+- Change usage of ArrayList to List (to make it easier to deal with databases)
+- Add res/values/secrets.xml to contain API keys
+  - Normally you do NOT put a file like this on GitHub (sensitive information), but it's not that important for our apps at the moment.
 
 **Week 6**
 - Use data from JSON rather than premade objects from FakeDatabase.
