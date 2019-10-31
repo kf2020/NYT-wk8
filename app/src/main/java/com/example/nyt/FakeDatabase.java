@@ -3,8 +3,6 @@ package com.example.nyt; // <============= CHANGE ME
 import com.example.nyt.model.Article;
 import com.example.nyt.model.Book;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +13,14 @@ import java.util.List;
  * Week 6:
  *  Now this acts as a place to store our objects, and make them accessible by an ID.
  *  It no longer contains fake data in there by default. You must populate it by parsing the JSON.
+ *
+ *
+ *      e.g. if I got [ArrayList<Book> booksFromJson] from my Gson parsing:
+ *              FakeDatabase.saveBooksToFakeDatabase(booksFromJson);
+ *
+ *           now my FakeDatabase contains my books from JSON.
+ *           And I can now do FakeDatabase.getBookByIsbn(1);
+ *
  *
  *
  * Example usage:
@@ -39,14 +45,14 @@ public class FakeDatabase {
     /***
      * Return an ArrayList containing all the articles in the database.
      */
-    public static ArrayList<Article> getAllArticles() {
-        return new ArrayList<Article>((List) Arrays.asList(articles.values().toArray()));
+    public static List<Article> getAllArticles() {
+        return (List) articles.values();
     }
 
     // This methods simulates saving the data you get from the API to your local database.
     // This way, we retrieve the whole object for an Article by using its ID.
     // Keep in mind it's not a real database yet.
-    public static void saveArticlesToFakeDatabase(ArrayList<Article> articlesToSave) {
+    public static void saveArticlesToFakeDatabase(List<Article> articlesToSave) {
         for(int i = 0; i < articlesToSave.size(); i++) {
             Article article = articlesToSave.get(i);
             articles.put(article.getId(), article);
@@ -59,7 +65,7 @@ public class FakeDatabase {
         return books.get(isbn);
     }
 
-    public static void saveBooksToFakeDatabase(ArrayList<Book> booksToSave) {
+    public static void saveBooksToFakeDatabase(List<Book> booksToSave) {
         for(int i = 0; i < booksToSave.size(); i++) {
             Book book = booksToSave.get(i);
             books.put(book.getIsbn(), book);

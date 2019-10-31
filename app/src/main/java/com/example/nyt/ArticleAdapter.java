@@ -15,15 +15,15 @@ import com.bumptech.glide.Glide;
 import com.example.nyt.activities.ArticleDetailActivity;
 import com.example.nyt.model.Article;
 
-import java.util.ArrayList;
+import java.util.List;
 
 // We need to give a type in angle brackets <> when we extend RecyclerView.Adapter
 // It's saying that we want an adapter that adapts to ArticleViewHolder (our custom ViewHolder)
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
     // class variable that holds the data that we want to adapt
-    private ArrayList<Article> articlesToAdapt;
+    private List<Article> articlesToAdapt;
 
-    public void setData(ArrayList<Article> articlesToAdapt) {
+    public void setData(List<Article> articlesToAdapt) {
         // This is basically a Setter that we use to give data to the adapter
         this.articlesToAdapt = articlesToAdapt;
     }

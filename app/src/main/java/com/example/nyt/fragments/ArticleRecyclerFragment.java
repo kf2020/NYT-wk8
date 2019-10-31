@@ -4,11 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.nyt.ArticleAdapter;
 import com.example.nyt.FakeAPI;
 import com.example.nyt.FakeDatabase;
@@ -16,6 +23,8 @@ import com.example.nyt.activities.MainActivity;
 import com.example.nyt.R;
 import com.example.nyt.model.TopStoriesResponse;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 
 public class ArticleRecyclerFragment extends Fragment {
@@ -34,31 +43,35 @@ public class ArticleRecyclerFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        ArticleAdapter articleAdapter = new ArticleAdapter();
+        // REFER to the comments in BookRecyclerAdapter
 
-        // This part is converting the JSON string into a TopStoriesResponse object, because we
-        // have written the TopStoriesResponse class to match the structure of the JSON.
-        // Within the TopStoriesResponse object ("topStoriesResponse"), it has the field "results",
-        // which is an ArrayList<Article>.
-        //
-        // Because my Article class is also written to match how one article is represented in the
-        // JSON, Gson will also automatically populate the "results" ArrayList with Article objects
-        // using the data from the JSON.
-        //
-        // Thus, when I access topStoriesResponse.results, I get an ArrayList of Articles.
-        // I can then give this to my recyclerView adapter.
+        final ArticleAdapter articleAdapter = new ArticleAdapter();
+        final RequestQueue requestQueue =  Volley.newRequestQueue(getActivity());
+        String url = "https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key="+getString(R.string.nyt_api_key);
 
-        Gson gson = new Gson();
-        String jsonString = FakeAPI.getMostViewedStoriesJsonString();
-        TopStoriesResponse topStoriesResponse = gson.fromJson(jsonString, TopStoriesResponse.class);
-        articleAdapter.setData(topStoriesResponse.results);
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                TopStoriesResponse topStoriesResponse = gson.fromJson(response, TopStoriesResponse.class);
+                articleAdapter.setData(topStoriesResponse.results);
+                FakeDatabase.saveArticlesToFakeDatabase(topStoriesResponse.results);
+                recyclerView.setAdapter(articleAdapter);
+                requestQueue.stop();
+            }
+        };
 
-        // We have reworked FakeDatabase to act as a place to store these Articles, such that we
-        // can access them via their ID. This will allow our intents to the DetailView to keep
-        // functioning.
-        FakeDatabase.saveArticlesToFakeDatabase(topStoriesResponse.results);
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"The request failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                requestQueue.stop();
+            }
+        };
 
-        recyclerView.setAdapter(articleAdapter);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, responseListener,
+                errorListener);
+        requestQueue.add(stringRequest);
 
         return view;
     }

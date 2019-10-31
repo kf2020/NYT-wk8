@@ -2,8 +2,7 @@ package com.example.nyt.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 public class Book {
 
@@ -13,6 +12,7 @@ public class Book {
 
     private int rank;
     private String description;
+
     private String title;
     private String author;
 
@@ -20,7 +20,7 @@ public class Book {
     private String bookImage;
 
     @SerializedName("buy_links")
-    private ArrayList<BuyLink> buyLinks;
+    private List<BuyLink> buyLinks;
 
     public long getIsbn() {
         return isbn;
@@ -46,7 +46,7 @@ public class Book {
         return bookImage;
     }
 
-    public ArrayList<BuyLink> getBuyLinks() {
+    public List<BuyLink> getBuyLinks() {
         return buyLinks;
     }
 

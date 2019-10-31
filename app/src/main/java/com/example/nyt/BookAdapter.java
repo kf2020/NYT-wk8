@@ -12,16 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.nyt.activities.ArticleDetailActivity;
 import com.example.nyt.activities.BookDetailActivity;
 import com.example.nyt.model.Book;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
-    private ArrayList<Book> booksToAdapt;
+    private List<Book> booksToAdapt;
 
-    public void setData(ArrayList<Book> booksToAdapt) {
+    public void setData(List<Book> booksToAdapt) {
         this.booksToAdapt = booksToAdapt;
     }
 
