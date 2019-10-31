@@ -1,8 +1,17 @@
 # NYT
  
-Currently the baseline app for Week 5 INFS3634.
+Currently the baseline app for Week 6 INFS3634.
 
 You will need to know how everything in this app works to be able to continue in Week 6.
+
+**Week 6**
+- Use data from JSON rather than premade objects from FakeDatabase.
+- Use Gson to turn JSON into objects (which contain ArrayLists of Article/Book)
+- Added TopStoriesResponse class to represent the whole JSON.
+  - Modified Article class to match the fields of the JSON.
+- Heavily modified FakeDatabase
+  - No longer contains data in there by default; you must populate it using saveBooksToFakeDatabase
+- **Implemented Books** - IMPORTANT: We will turn our focus from Articles to Books for the following weeks.
 
 **Week 5**
 - Fragments (new class ArticleRecyclerFragment, ProfileFragment).
