@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.nyt.AppDatabase;
 import com.example.nyt.FakeDatabase;
 import com.example.nyt.R;
 import com.example.nyt.model.Book;
@@ -36,7 +37,9 @@ public class BookDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         long isbn = intent.getLongExtra("isbn", 0);
-        Book book = FakeDatabase.getBookByIsbn(isbn);
+        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+        Book book = db.bookDao().findBookByIsbn(isbn);
+        //Book book = FakeDatabase.getBookByIsbn(isbn);
 
         titleTextView.setText(book.getTitle());
         authorTextView.setText(book.getAuthor());

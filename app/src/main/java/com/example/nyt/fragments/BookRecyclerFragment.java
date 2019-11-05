@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.nyt.AppDatabase;
 import com.example.nyt.ArticleAdapter;
 import com.example.nyt.BookAdapter;
 import com.example.nyt.FakeAPI;
@@ -53,6 +54,11 @@ public class BookRecyclerFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        final AppDatabase db = AppDatabase.getInstance(this.getContext());
+        //Book book = db.bookDao().findBookByIsbn();
+        //List<Book> books = db.bookDao().getAllBooks();
+
+
         final BookAdapter bookAdapter = new BookAdapter();
 
         // Start Volley stuff
@@ -70,7 +76,9 @@ public class BookRecyclerFragment extends Fragment {
         // It also makes it easy for me to hide the API key if I want to share my code
         // (I can just ignore the secrets.xml file instead of having to go into all the files and delete it.)
         // You will need to go into the file and put in your own API key first.
-        String url = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key="+getString(R.string.nyt_api_key);
+        String url = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=" +
+               // "Tjjy9dFpVjjxn8FsLrJvLYeUQhWqvTta";
+        getString(R.string.nyt_api_key);
 
         // Response.Listener<String>. We define what to do after a response is received.
         // Response.Listener means that it is referring to the inner class Listener, which has been
@@ -92,9 +100,10 @@ public class BookRecyclerFragment extends Fragment {
                 List<Book> bestsellers = bestsellerList.getBooks();
 
                 // I save my results to the database so I can retrieve it later in my other activities.
-                FakeDatabase.saveBooksToFakeDatabase(bestsellers);
+                //FakeDatabase.saveBooksToFakeDatabase(bestsellers);
+                db.bookDao().insertBooks(bestsellers);
 
-                bookAdapter.setData(bestsellers);
+                bookAdapter.setData(db.bookDao().getAllBooksSorted());
                 recyclerView.setAdapter(bookAdapter);
 
                 // It is a good idea to include this line after we are done with the requestQueue.
